@@ -1,38 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="16dp"
     tools:context=".MainActivity">
 
-    <Spinner
-        android:id="@+id/spinner"
+    <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"/>
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radio_d4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="d4" />
+
+        <RadioButton
+            android:id="@+id/radio_d6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="d6" />
+
+        <RadioButton
+            android:id="@+id/radio_d8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="d8" />
+
+        <RadioButton
+            android:id="@+id/radio_d10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="d10" />
+
+        <RadioButton
+            android:id="@+id/radio_d12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="d12" />
+
+        <RadioButton
+            android:id="@+id/radio_d20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="d20" />
+
+        <RadioButton
+            android:id="@+id/radio_custom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Custom" />
+
+        <RadioButton
+            android:id="@+id/radio_true_d10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="True d10" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/customValueEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radioGroup"
+        android:hint="Enter custom value"
+        android:inputType="number"
+        android:visibility="gone"
+        android:layout_marginTop="8dp"/>
 
     <Button
         android:id="@+id/rollButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Roll"
-        android:layout_marginBottom="8dp"/>
+        android:layout_below="@id/customValueEditText"
+        android:layout_marginTop="8dp"/>
 
     <Button
         android:id="@+id/rollTwiceButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Roll Twice"
-        android:layout_marginBottom="8dp"/>
+        android:layout_below="@id/rollButton"
+        android:layout_marginTop="8dp"/>
 
     <TextView
         android:id="@+id/resultTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/rollTwiceButton"
         android:layout_marginTop="16dp"
         android:textSize="24sp"
         android:textAlignment="center"/>
-</LinearLayout>
+</RelativeLayout>

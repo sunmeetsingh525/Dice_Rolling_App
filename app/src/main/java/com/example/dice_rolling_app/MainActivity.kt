@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.core.widget.addTextChangedListener
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -18,15 +19,11 @@ class MainActivity : AppCompatActivity() {
 
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
-        val diceOptions = resources.getStringArray(R.array.dice_options)
-        val spinner: Spinner = findViewById(R.id.spinner)
+        val radioGroup: RadioGroup = findViewById(R.id.radioGroup)
+        val customValueEditText: EditText = findViewById(R.id.customValueEditText)
         val rollButton: Button = findViewById(R.id.rollButton)
         val rollTwiceButton: Button = findViewById(R.id.rollTwiceButton)
         val resultTextView: TextView = findViewById(R.id.resultTextView)
-
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, diceOptions)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
 
         rollButton.setOnClickListener {
             val maxVal = getSelectedDiceMaxValue()
@@ -40,11 +37,33 @@ class MainActivity : AppCompatActivity() {
             val randomVal2 = Random.nextInt(1, maxVal + 1)
             resultTextView.text = "$randomVal1, $randomVal2"
         }
+
+        customValueEditText.addTextChangedListener {
+            val customValue = it.toString().toIntOrNull()
+            if (customValue != null && customValue > 0) {
+                val editor = sharedPreferences.edit()
+                editor.putString("customDice", customValue.toString())
+                editor.apply()
+            }
+        }
+
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            customValueEditText.text.clear() // Clear the custom value text when changing dice selection
+            resultTextView.text = ""
+
+            if (checkedId == R.id.radio_custom) {
+                customValueEditText.visibility = View.VISIBLE
+            } else {
+                customValueEditText.visibility = View.GONE
+            }
+        }
     }
 
     private fun getSelectedDiceMaxValue(): Int {
-        val spinner: Spinner = findViewById(R.id.spinner)
-        val selectedDice = spinner.selectedItem.toString()
+        val radioGroup: RadioGroup = findViewById(R.id.radioGroup)
+        val selectedRadioButtonId = radioGroup.checkedRadioButtonId
+        val selectedRadioButton = findViewById<RadioButton>(selectedRadioButtonId)
+        val selectedDice = selectedRadioButton.text.toString()
         val customValue = sharedPreferences.getString("customDice", "")?.toIntOrNull()
 
         return when {
@@ -55,3 +74,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
