@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getSelectedDiceMaxValue(): Int {
+
         val radioGroup: RadioGroup = findViewById(R.id.radioGroup)
         val selectedRadioButtonId = radioGroup.checkedRadioButtonId
         val selectedRadioButton = findViewById<RadioButton>(selectedRadioButtonId)
