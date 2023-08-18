@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <resources>
+        <string-array name="dice_options">
+            <item>d4</item>
+            <item>d6</item>
+            <item>d8</item>
+            <item>d10</item>
+            <item>d12</item>
+            <item>d20</item>
+            <item>Custom</item>
+            <item>True d10</item>
+        </string-array>
+    </resources>
